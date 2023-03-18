@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+    <title>Task list</title>
+</head>
+    {% block body %}
+<body>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+{% for task in tasks %}
+<div>
+    <tr>
+        <td>{{task.ID}} {{task.title}}</td>
+        <td><a href="{% url 'task' task.ID %}">See the details</a></td>
+        <div></div>
+        <td><a href="{% url 'updateTask' task.ID %}">Update task</a></td>
+        <td><a href="{% url 'deleteTask' task.ID %}">Delete task</a></td>
+    </tr>
+    {% empty %}
+    <h3> You don't have any assigned task</h3>
+    {% endfor %}
+
+    </div>
+</table>
+{% endblock body %}
