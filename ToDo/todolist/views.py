@@ -1,17 +1,34 @@
-
-
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from django.views.generic.list import ListView
 
+from .forms import NewUserCreationForm
 # Create your views here.
 from .models import Task
 
 
 def index(request):
-    return render(request, 'home.html', {})
+    return render(request, 'home.html')
+
+
+class LoginUser(LoginView):
+    template_name = 'login.html'
+    fields = '__all__'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+class RegisterUser(FormView):
+    template_name = 'register.html'
+    form_class = NewUserCreationForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('home')
+
 
 
 # def task_list(request):

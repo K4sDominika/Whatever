@@ -4,7 +4,12 @@
     <title>Task list</title>
 </head>
     {% block body %}
+<div class="header-bar">
+    <a href="{% url 'home' %}">Go Back</a>
+</div>
+
 <body>
+
 <table>
     <tr>
         <th></th>
@@ -14,10 +19,10 @@
 <div>
     <tr>
         <td>{{task.ID}} {{task.title}}</td>
-        <td><a href="{% url 'task' task.ID %}">See the details</a></td>
+        <td><a href="{% url 'task' task.ID %}">Details</a></td>
         <div></div>
-        <td><a href="{% url 'updateTask' task.ID %}">Update task</a></td>
-        <td><a href="{% url 'deleteTask' task.ID %}">Delete task</a></td>
+        <td><a href="{% url 'updateTask' task.ID %}">Update </a></td>
+        <td><a href="{% url 'deleteTask' task.ID %}">Delete </a></td>
     </tr>
     {% empty %}
     <h3> You don't have any assigned task</h3>
