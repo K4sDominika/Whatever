@@ -1,5 +1,9 @@
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.template import loader
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
@@ -29,27 +33,58 @@ class RegisterUser(FormView):
     redirect_authenticated_user = True
     success_url = reverse_lazy('home')
 
+    def form_valid(self, form):
+        user = form.save()
+        if user is not None:
+            login(self.request, user)
+        return super(RegisterUser, self).form_valid(form)
+
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('list')
+        return super(RegisterUser, self).get(*args, **kwargs)
 
 
-# def task_list(request):
-# tasks = Task.objects.all()
-
-# context = {'tasks': tasks}
-# return render(request, 'task_list.html', context)
-
-class TaskList(ListView):
+class TaskList(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
     template_name = 'task_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user)
+        context['count'] = context['tasks'].filter(completed=False).count()
 
-class OverviewTask(DetailView):
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['tasks'] = context['tasks'].filter(
+                title__contains=search_input)
+
+        context['search_input'] = search_input
+
+        return context
+
+    # class CompletedList(LoginRequiredMixin, ListView):
+    #     model = Task
+
+
+def completed(request):
+    completed_tasks = Task.objects.filter(completed=True)
+    template = loader.get_template('task_completed.html')
+    context = {
+        'tasks': completed_tasks
+    }
+    return HttpResponse(template.render(context, request))
+
+
+class OverviewTask(LoginRequiredMixin, DetailView):
     model = Task
     context_object_name = 'task'
+    fields = '__all__'
     template_name = 'task_overview.html'
 
 
-class CreateTask(CreateView):
+class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
     fields = '__all__'
 
@@ -58,13 +93,13 @@ class CreateTask(CreateView):
     success_url = reverse_lazy('list')
 
 
-class DeleteTask(DeleteView):
+class DeleteTask(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = 'task_delete.html'
     success_url = reverse_lazy('list')
 
 
-class UpdateTask(UpdateView):
+class UpdateTask(LoginRequiredMixin, UpdateView):
     model = Task
     template_name = 'task_update.html'
     fields = '__all__'

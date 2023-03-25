@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+{% block body %}
 <p><a href="{% url 'list' %}">Go back to the list</a></p>
-<h1>Your task overview</h1>
-<h2>{{task}}</h2>
+<p>Your task overview</p>
+<p>{{task}}</p>
+{% endblock %}

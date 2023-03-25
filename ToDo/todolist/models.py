@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -39,6 +40,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(null=True, blank=True)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    completed = models.BooleanField(default=False)
     due_date = models.DateTimeField(default=due_date)
 
     def __str__(self) -> str:
@@ -46,3 +48,6 @@ class Task(models.Model):
 
     class Meta:
         ordering = ["due_date"]
+
+
+AUTH_USER_MODEL = 'todolist.User'

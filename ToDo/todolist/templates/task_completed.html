@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+    {% block body %}
+<head>
+    <title>Completed Task list</title>
+</head>
+
+<div class="header-bar">
+    <a href="{% url 'home' %}">Go Back</a>
+</div><body>
+
+<p>Your completed tasks:</p>
+
+
+  {% for x in tasks %}
+<table>
+    <tr>
+      <td>ID {{ x.ID }}</td>
+      <td>Title{{ x.title }}</td>
+
+    </tr>
+</table>
+
+  {% endfor %}
+
+</body>
+{% endblock %}
