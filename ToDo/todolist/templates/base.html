@@ -52,20 +52,24 @@
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Completed</a>
+                  <a class="nav-link" href="{% url 'completed' %}">Completed</a>
                 </li>
               </ul>
               <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Search" value="{{search_input}}" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
             </div>
           </div>
         </nav>
     {% endblock navbar %}
-    {% block body %}
 
-    {% endblock body %}
+
+    <div class="container">
+        {% block body %} {% endblock  %}
+    </div>
+
+</body>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
