@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import Task, Category, Status
 from datetime import datetime, timedelta
+from django.contrib.auth.models import User
 
 
 class TaskTestCase(TestCase):
@@ -8,8 +9,9 @@ class TaskTestCase(TestCase):
     def setUp(self):
         self.category = Category.objects.create(name='test category')
         self.status = Status.objects.create(name='test status')
+        self.user = User.objects.create(first_name='testuser', last_name="test")
         self.task = Task.objects.create(
-            user='testuser',
+            user=self.user,
             title='test title',
             description='test description',
             category=self.category,
@@ -19,7 +21,7 @@ class TaskTestCase(TestCase):
 
     def test_task_fields(self):
         """Test that Task fields are correctly set"""
-        self.assertEqual(self.task.user, 'testuser')
+        self.assertEqual(self.task.user.first_name, 'testuser')
         self.assertEqual(self.task.title, 'test title')
         self.assertEqual(self.task.description, 'test description')
         self.assertEqual(self.task.category, self.category)
@@ -36,7 +38,12 @@ class TaskTestCase(TestCase):
 
     def test_task_str(self):
         """Test that Task __str__ method returns the expected string"""
-        expected_str = f'{self.task.ID}: {self.task.title}'
+        # given
+        # expected_str = f'{self.task.ID}: {self.task.title}'
+        # f"Title: {self.title}  Category:  {self.category}  Status: {self.status}."
+        expected_str = "Title: test title  Category:  test category  Status: test status."
+        # when
+        # then
         self.assertEqual(str(self.task), expected_str)
 
 
