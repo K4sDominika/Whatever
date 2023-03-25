@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 def due_date():
@@ -31,7 +32,7 @@ class Status(models.Model):
 # Create your models here.
 class Task(models.Model):
     ID = models.AutoField(primary_key=True)
-    user = models.TextField
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, default=None)
