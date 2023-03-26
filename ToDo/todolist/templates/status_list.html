@@ -5,31 +5,45 @@
     <title>Status</title>
 </head>
 <body>
-<table class="table table-sm table-dark" border="1">
-    {{statuses}}
-{% for task in tasks %}
-    {% if forloop.counter == 0 %}
-    <thead>
-        <tr>
-        {% for status in statuses %}
-            <td>
-                {{status.title}}
-            </td>
-        {% endfor %}
-        </tr>
-    </thead>
-    {% endif %}
 
-    <tbody>
+    <table class="table table-sm table-dark" border="1">
+    {% for status in statuses %}
+        {% if forloop.counter == 1 %}
+            <thead>
+                <tr>
+                {% for status in statuses %}
+                    <td>
+                        {{ status.name }}
+                    </td>
+                {% endfor %}
+                </tr>
+            </thead>
+        {% endif %}
+        {% if forloop.counter == 1 %}
         <tr>
+        {% endif %}
             <td>
-                {{task.title}}
+                <table>
+                {% for task in status.tasks.all %}
+                    {% if task.status.id == status.id %}
+                        <tr>
+                            <td>
+                                {{ task.title }}
+                                {{ task.status.name }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </table>
             </td>
+        {% if forloop.last == 1 %}
         </tr>
-    </tbody>
-{% endfor %}
+        {% endif %}
+    {% endfor %}
+
 </table>
-
 
 </body>
 </html>
+
+

@@ -39,7 +39,7 @@ class Task(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(null=True, blank=True)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='tasks')
     completed = models.BooleanField(default=False)
     due_date = models.DateTimeField(default=due_date)
 

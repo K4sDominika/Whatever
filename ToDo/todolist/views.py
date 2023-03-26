@@ -82,9 +82,10 @@ class StatusList(LoginRequiredMixin, ListView):
     def get(self, request, *args, **kwargs):
         statuses = Status.objects.all()
         tasks = Task.objects.all()
-        context = {'statuses': statuses,
-                   'tasks' : tasks
-                   }
+        context = {
+            'statuses': statuses,
+            'tasks': tasks
+        }
         return render(request, "status_list.html", context=context)
 
 
