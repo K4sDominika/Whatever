@@ -1,16 +1,25 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %}
 
 
     <title>To Do App</title>
-</head>
+
     {% block body %}
-<body>
+
     <h1>
         Welcome to Mordor
     </h1>
-    <img src="https://www.sideshow.com/wp/wp-content/uploads/2021/05/Eye-of-Sauron.jpeg"/>
 
-</body>
+      <style>
+         body {
+            background-image: url('https://ae01.alicdn.com/kf/HTB1IKYjs1SSBuNjy0Flq6zBpVXaA.jpg');
+             background-repeat: no-repeat;
+         }
+      </style>
+
+<!-- Github -->
+<a class="btn text-white" style="font-size:36px;" href="https://github.com/K4sDominika/Whatever" role="button">
+  <i class="fab fa-github"></i>
+</a>
     {% endblock %}
 
 

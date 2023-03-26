@@ -1,3 +1,6 @@
+from urllib import request
+
+from django.contrib.admin import filters
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
@@ -63,9 +66,6 @@ class TaskList(LoginRequiredMixin, ListView):
         context['search_input'] = search_input
 
         return context
-
-    # class CompletedList(LoginRequiredMixin, ListView):
-    #     model = Task
 
 
 def completed(request):
