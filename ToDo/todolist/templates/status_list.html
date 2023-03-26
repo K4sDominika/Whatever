@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Status</title>
+</head>
+<body>
+<table class="table table-sm table-dark" border="1">
+    {{statuses}}
+{% for task in tasks %}
+    {% if forloop.counter == 0 %}
+    <thead>
+        <tr>
+        {% for status in statuses %}
+            <td>
+                {{status.title}}
+            </td>
+        {% endfor %}
+        </tr>
+    </thead>
+    {% endif %}
+
+    <tbody>
+        <tr>
+            <td>
+                {{task.title}}
+            </td>
+        </tr>
+    </tbody>
+{% endfor %}
+</table>
+
+
+</body>
+</html>

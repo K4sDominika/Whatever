@@ -14,7 +14,7 @@ from django.views.generic.list import ListView
 
 from .forms import NewUserCreationForm
 # Create your views here.
-from .models import Task
+from .models import Task, Status
 
 
 def index(request):
@@ -75,6 +75,19 @@ def completed(request):
         'tasks': completed_tasks
     }
     return HttpResponse(template.render(context, request))
+
+
+class StatusList(LoginRequiredMixin, ListView):
+    model = Task
+    def get(self, request, *args, **kwargs):
+        statuses = Status.objects.all()
+        tasks = Task.objects.all()
+        context = {'statuses': statuses,
+                   'tasks' : tasks
+                   }
+        return render(request, "status_list.html", context=context)
+
+
 
 
 class OverviewTask(LoginRequiredMixin, DetailView):
