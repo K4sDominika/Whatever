@@ -3,7 +3,7 @@ from django.urls import path
 
 from . import views
 
-from .views import CreateTask,DeleteTask,UpdateTask, TaskList,OverviewTask, LoginUser, RegisterUser#, CompletedList
+from .views import CreateTask,DeleteTask,UpdateTask, TaskList,OverviewTask, LoginUser, RegisterUser
 
 
 urlpatterns = [

@@ -36,9 +36,9 @@
     <div>
         <tr>
             <td>{{task.ID}} {{task.title}}</td>
-            <td><a href="{% url 'task' task.ID %}">Details</a></td>
-            <td><a href="{% url 'updateTask' task.ID %}">Update </a></td>
-            <td><a href="{% url 'deleteTask' task.ID %}">Delete </a></td>
+            <td><a href="{% url 'task' task.ID %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Details</a></td>
+            <td><a href="{% url 'updateTask' task.ID %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Update</a></td>
+            <td><a href="{% url 'deleteTask' task.ID %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Delete</a></td>
         </tr>
 
         {% empty %}
